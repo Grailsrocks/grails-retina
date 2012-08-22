@@ -39,7 +39,7 @@ This mode renders `<img>` tags with empty `src` and once the page loads, swaps i
 ## Known issues
 
 * No support yet for placeholder images
-* CSS "bg" mode does not use an <img> so it is not semantic
+* CSS "bg" mode does not use an `<img>` so it is not semantic
 * Not sure how expressing fractional pixel ratios as attributes will work... but not that bothered sorry
 * Extra attributes passed to image are not output currently
 * We should probably auto-sense whether to use JS or CSS based on what dispositions remain for rendering
