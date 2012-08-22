@@ -46,7 +46,7 @@ class RetinaTagLib {
 					def url = r.resource(uri:e.value)
 					imgsets <<= ", url('${url}') ${e.key}"
 				}
-				r.stash(disposition:'defer', type:'style') {
+				r.stash(disposition:'head', type:'style') {
 					"""
 					#imageset${id} {
 						padding: 0;
@@ -64,9 +64,10 @@ class RetinaTagLib {
 				}
 				break;
 			// This does not handle realtime changes to dpi i.e. dragging browser between retina and non-retina displays, loads only when page is ready
-			// However it can be used no matter where in the page/processing the image occurs
+			// However it can be used no matter where in the page/processing the image occurs, and it is semantically correct
 			case 'js':
 			default:
+				// @todo output all other user-supplied attributes, and support a placeholder image
 				out << "<img src=\"\" width=\"${w}\" height=\"${h}\" class=\"image-set\" data-default-src=\"${defaultSrc.encodeAsHTML()}\""
 				def imgsets = new StringBuilder()
 				for (e in attrs) {
