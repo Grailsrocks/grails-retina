@@ -28,7 +28,7 @@ You can add `mode="js"` to force it to use JS to swap the images. This is useful
 
 ## CSS 'bg' mode
 
-This uses `background-image` along with the `image-set' function supported in latest Safari and Chrome browsers. It generates CSS specific to the image which is gathered together and appended to `<head>` as a single `<style>` block in the page.
+This uses `background-image` along with the `image-set` function supported in latest Safari and Chrome browsers. It generates CSS specific to the image which is gathered together and appended to `<head>` as a single `<style>` block in the page.
 
 The benefits of this are that the image to load is known as the page loads. No missing images until page load is complete.
 
