@@ -25,3 +25,21 @@ In any GSP page where you would normally use `<img>` or `<r:img>` and you want t
 You set the `uri` to point at your normal DPI image, and set `2x` to point at your retina image. 
 
 You can add `mode="js"` to force it to use JS to swap the images. This is useful if you are rendering images in a GSP layout after the first `r:layoutResources` has been called. The default mode is 'bg' which uses automatically generated CSS per image, inserted into the `<head>` section of the page.
+
+## CSS 'bg' mode
+
+This uses `background-image` and related tricks, generating CSS specific to the image which is gathered together and appended to `<head>` as a single `<style>` block in the page.
+
+The benefits of this are that the image to load is known as the page loads. No missing images until page load is complete.
+
+## Scripted 'js' mode
+
+This mode renders `<img>` tags with empty `src` and once the page loads, swaps in the correct URLs into the `src` attribute. Works for images used anywhere in your Sitemesh layout, but no version of the image can load until the JS executes at the end of the page.
+
+## Known issues
+
+* No support yet for placeholder images
+* CSS "bg" mode does not use an <img> so it is not semantic
+* Not sure how expressing fractional pixel ratios as attributes will work... but not that bothered sorry
+* Extra attributes passed to image are not output currently
+* We should probably auto-sense whether to use JS or CSS based on what dispositions remain for rendering
