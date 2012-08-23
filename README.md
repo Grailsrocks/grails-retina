@@ -4,6 +4,8 @@ This plugin adds a single tag that is used to hide the horrors of rendering inli
 
 Your site images look like crap on these platforms, especially the larger MacBook Pro if you do not supply high resolution images. Part of the reason for this is that text in web pages looks so incredibly crisp, it just makes the photos and logos look worse.
 
+*This implementation is simply a first stab. It works as a quick fix. More ideas and approaches are in the pipeline.*
+
 ## What kind of images is this for?
 
 This plugin is just for inline images where you would normally use `<img>` or Grails Resources `<r:img>` tag.
