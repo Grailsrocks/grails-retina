@@ -48,18 +48,18 @@ class RetinaTagLib {
                 }
                 r.stash(disposition:'head', type:'style') {
                     """
-                    #imageset${id} {
-                        padding: 0;
-                        width: ${w}px;
-                        height: ${h}px;
-                        display: block;
-                        background-size: ${w}px ${h}px;
-                        background-image: url(${defaultSrc});
-                        background-image: -webkit-image-set($imgsets);
-                        background-image: -moz-image-set($imgsets);
-                        background-image: -o-image-set($imgsets);
-                        background-image: -ms-image-set($imgsets);
-                    }
+#imageset${id} {
+    padding: 0;
+    width: ${w}px;
+    height: ${h}px;
+    display: block;
+    background-size: ${w}px ${h}px;
+    background-image: url(${defaultSrc});
+    background-image: -webkit-image-set($imgsets);
+    background-image: -moz-image-set($imgsets);
+    background-image: -o-image-set($imgsets);
+    background-image: -ms-image-set($imgsets);
+}
 """
                 }
                 break;

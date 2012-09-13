@@ -38,6 +38,6 @@ grails.project.dependency.resolution = {
         compile(":platform-core:1.0.M7-SNAPSHOT") {
             excludes "slf4j-api"
         }
-        runtime ":resources:1.2.RC2-SNAPSHOT"
+        runtime(":resources:1.2.RC2")
     }
 }
