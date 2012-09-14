@@ -28,6 +28,7 @@ class RetinaTagLib {
     // 4) CSS with media-queries - would adapt in realtime but requires knowledge of the client PPIs in advance
     def set = { attrs ->
         def defaultSrc = r.resource(uri:attrs.remove('uri'))
+        def classes = attrs.remove('class')
         def w = attrs.remove('width')
         def h = attrs.remove('height')
         def alt = attrs.remove('alt')
@@ -39,7 +40,11 @@ class RetinaTagLib {
             // ideally however these would be in an external file generated only once
             case 'bg':
                 def id = TagLibUtils.newUniqueId(request)
-                out << "<span id=\"imageset${id.encodeAsHTML()}\"/>"
+                out << "<span id=\"imageset${id.encodeAsHTML()}\""
+                if (classes) {
+                    out << "class=\"${classes}\""
+                }
+                out << "></span>"
                 def imgsets = new StringBuilder()
                 imgsets <<= "url('${defaultSrc}') 1x"
                 for (e in attrs) {
@@ -68,7 +73,8 @@ class RetinaTagLib {
             case 'js':
             default:
                 // @todo output all other user-supplied attributes, and support a placeholder image
-                out << "<img src=\"\" width=\"${w}\" height=\"${h}\" class=\"image-set\" data-default-src=\"${defaultSrc.encodeAsHTML()}\""
+                classes = p.joinClasses(values:['image-set', classes])
+                out << "<img src=\"\" width=\"${w}\" height=\"${h}\" class=\"${classes}\" data-default-src=\"${defaultSrc.encodeAsHTML()}\""
                 def imgsets = new StringBuilder()
                 for (e in attrs) {
                     def url = r.resource(uri:e.value)
