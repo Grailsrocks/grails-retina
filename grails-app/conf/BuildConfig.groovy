@@ -10,7 +10,12 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        grailsCentral()
+	    mavenCentral()
+	    grailsPlugins()
+	    grailsHome()
+	    grailsCentral()
+	    mavenRepo "http://repository.codehaus.org"
+	    mavenRepo "http://repo.grails.org/grails/plugins-releases"
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
@@ -34,10 +39,10 @@ grails.project.dependency.resolution = {
         }
 
         runmtime(":jquery:1.7")
-        
-        compile(":platform-core:1.0.M7-SNAPSHOT") {
+
+	    compile (":platform-core:1.0.0" ){
             excludes "slf4j-api"
         }
-        runtime(":resources:1.2.RC2")
+        runtime(":resources:1.2")
     }
 }
