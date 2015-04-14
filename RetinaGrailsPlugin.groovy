@@ -1,6 +1,6 @@
 class RetinaGrailsPlugin {
     def version = "1.0.2"
-    def grailsVersion = "2.2 > *"
+    def grailsVersion = "2.1 > *"
     def title = "Retina Plugin"
     def description = 'Simple tag for adding inline Retina images to your GSP pages'
     def documentation = "http://grails.org/plugin/retina"
