@@ -1,43 +1,27 @@
-grails.project.class.dir = "target/classes"
-grails.project.test.class.dir = "target/test-classes"
-grails.project.test.reports.dir = "target/test-reports"
+grails.project.work.dir = 'target'
 
+grails.project.dependency.resolver = 'maven'
 grails.project.dependency.resolution = {
-    // inherit Grails' default dependencies
-    inherits("global") {
-        // uncomment to disable ehcache
-        // excludes 'ehcache'
-    }
-    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
-    repositories {
-        grailsCentral()
-        // uncomment the below to enable remote dependency resolution
-        // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
-    }
-    dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        // runtime 'mysql:mysql-connector-java:5.1.18'
+    inherits 'global'
+    log 'warn'
+
+    repositories {
+        mavenLocal()
+        grailsCentral()
+        mavenCentral()
     }
 
     plugins {
-        build(":tomcat:$grailsVersion",
-              ":release:2.0.3",
-              ":rest-client-builder:1.0.2") {
+        build ':release:3.1.1', ':rest-client-builder:2.1.3', {
             export = false
         }
 
-        runmtime(":jquery:1.7")
-        
-        compile(":platform-core:1.0.M7-SNAPSHOT") {
+        compile (":platform-core:1.0.0") {
             excludes "slf4j-api"
         }
-        runtime(":resources:1.2.RC2")
+
+        runtime(":jquery:1.11.1")
+        runtime(":resources:1.2.14")
     }
 }

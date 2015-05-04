@@ -22,9 +22,9 @@ The challenge lies in not downloading any version of the image until the DPI is 
 
 In any GSP page where you would normally use `<img>` or `<r:img>` and you want to support retina images also, use `img:set`:
 
-	<img:set uri="/images/logo.png" 2x="/images/logo@2x.png" width="100" height="50"/>
+    <img:set uri="/images/logo.png" 2x="/images/logo@2x.png" width="100" height="50"/>
 
-You set the `uri` to point at your normal DPI image, and set `2x` to point at your retina image. 
+You set the `uri` to point at your normal DPI image, and set `2x` to point at your retina image.
 
 You can add `mode="js"` to force it to use JS to swap the images. This is useful if you are rendering images in a GSP layout after the first `r:layoutResources` has been called. The default mode is 'bg' which uses automatically generated CSS per image, inserted into the `<head>` section of the page.
 

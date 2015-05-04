@@ -1,0 +1,12 @@
+.classpath
+.DS_Store
+.settings
+.project
+*.iws
+*.log
+*.swp
+/grails-retina-*.zip
+/grails-retina-*.zip.sha1
+/plugin.xml
+/target
+/web-app/WEB-INF

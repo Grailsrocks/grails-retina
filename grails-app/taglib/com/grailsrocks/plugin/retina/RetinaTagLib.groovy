@@ -22,7 +22,7 @@ class RetinaTagLib {
     static namespace = 'img'
 
     // Options:
-    // 1) CSS downsampling - bad, everyone gets hires image
+    // 1) CSS downsampling - bad, everyone gets hi-res image
     // 2) HTML with JS replacement - generate no link on page load, JS substitutes correct url in. No images until page loaded
     // 3) CSS image-set - BG images only/span tricks needed to be clickable, dynamic CSS needed
     // 4) CSS with media-queries - would adapt in realtime but requires knowledge of the client PPIs in advance
@@ -32,24 +32,24 @@ class RetinaTagLib {
         def w = attrs.remove('width')
         def h = attrs.remove('height')
         def alt = attrs.remove('alt')
-        def mode = attrs.remove('mode') ?: 'bg'
+        String mode = attrs.remove('mode') ?: 'bg'
         switch (mode) {
             // This handles realtime changes to dpi i.e. dragging browser between retina and non-retina displays, loads immediately
             // Cannot be called after r.layourResources for head has been executed
             // Although we *could* bypass this by writing out inline styles on the span, or a <style> block just before
             // ideally however these would be in an external file generated only once
             case 'bg':
-                def id = TagLibUtils.newUniqueId(request)
-                out << "<span id=\"imageset${id.encodeAsHTML()}\""
+                String id = TagLibUtils.newUniqueId(request)
+                out << '<span id="imageset' << id.encodeAsHTML() << '" '
                 if (classes) {
-                    out << "class=\"${classes}\""
+                    out << 'class="' << classes << '" '
                 }
                 out << "></span>"
                 def imgsets = new StringBuilder()
-                imgsets <<= "url('${defaultSrc}') 1x"
-                for (e in attrs) {
-                    def url = r.resource(uri:e.value)
-                    imgsets <<= ", url('${url}') ${e.key}"
+                imgsets << "url('" << defaultSrc << "') 1x"
+                attrs.each { key, value ->
+                    def url = r.resource(uri:value)
+                    imgsets << ", url('" << url << "') " << key
                 }
                 r.stash(disposition:'head', type:'style') {
                     """
@@ -67,23 +67,23 @@ class RetinaTagLib {
 }
 """
                 }
-                break;
+                break
             // This does not handle realtime changes to dpi i.e. dragging browser between retina and non-retina displays, loads only when page is ready
             // However it can be used no matter where in the page/processing the image occurs, and it is semantically correct
             case 'js':
             default:
                 // @todo output all other user-supplied attributes, and support a placeholder image
                 classes = p.joinClasses(values:['image-set', classes])
-                out << "<img src=\"\" width=\"${w}\" height=\"${h}\" class=\"${classes}\" data-default-src=\"${defaultSrc.encodeAsHTML()}\""
+                out << '<img src="" width="' << w << '" height="' << h << '" class="' << classes << '" data-default-src="' << defaultSrc.encodeAsHTML() << '"'
                 def imgsets = new StringBuilder()
-                for (e in attrs) {
-                    def url = r.resource(uri:e.value)
-                    imgsets <<= " data-${e.key}-src=\"${url.encodeAsHTML()}\""
+                attrs.each { key, value ->
+                    def url = r.resource(uri:value)
+                    imgsets << ' data-' << key << '-src="' << url.encodeAsHTML() << '"'
                 }
                 out << imgsets
                 out << "/>"
                 r.require(module:'plugin.retina.imagesets')
-                break;
+                break
         }
     }
 }
